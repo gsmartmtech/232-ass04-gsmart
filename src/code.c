@@ -410,7 +410,7 @@ Node* detachLast(Node **headPtrPtr)
     if (currentPtr->nextPtr == NULL) // checks if list only has one element and if so detaches first node and returns it
     {
         Node* firstNode = detachFirst(headPtrPtr);
-        nullify(firstNode);
+        _nullify(firstNode);
         return firstNode;
     }
     while (currentPtr->nextPtr->nextPtr != NULL)
@@ -546,7 +546,7 @@ int deleteValue(Node **headPtrPtr, int value)
     }
     else
     {
-        destroy(valNode);
+        destroyNode(valNode);
         return 0;
     }
 }
@@ -600,7 +600,7 @@ int printList(Node *headPtr)
     }
     while (currentPtr->nextPtr != NULL)
     {
-        printf(currentPtr->value);
+        printf("" + currentPtr->value);
         currentPtr = currentPtr->nextPtr;
     }
     return 0;
@@ -627,4 +627,5 @@ int listLength(Node *headPtr)
         nodeCount += 1;
         currentPtr = currentPtr->nextPtr;
     }
+    return nodeCount;
 }
