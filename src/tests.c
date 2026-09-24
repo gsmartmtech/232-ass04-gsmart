@@ -165,8 +165,13 @@ void test_destroyNode_sets_null(void)
 
 void test_addFirst_empty_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr;
+    headPtr = NULL;
+    Node* node2Add; addFirst(headPtr, &node2Add);
+
+    TEST_ASSERT_EQUAL(&node2Add, headPtr->nextPtr);
+
+    destroyList(headPtr);
 }
 
 
