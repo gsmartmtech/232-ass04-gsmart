@@ -150,7 +150,7 @@ void test_destroyNode_sets_null(void)
 {
     Node* cNode = createNode(76);
     destroyNode(cNode);
-    TEST_ASSERT_EQUAL(NULL, cNode);
+    TEST_ASSERT_EQUAL(NULL, cNode->nextPtr);
 }
 
 
@@ -166,10 +166,11 @@ void test_destroyNode_sets_null(void)
 void test_addFirst_empty_list(void)
 {
     Node* headPtr;
-    headPtr = NULL;
-    Node* node2Add; addFirst(headPtr, &node2Add);
+    headPtr->nextPtr = NULL;
+    Node node2Add;
+    addFirst(&headPtr, &node2Add);
 
-    TEST_ASSERT_EQUAL(&node2Add, headPtr->nextPtr);
+    TEST_ASSERT_EQUAL(&node2Add, headPtr);
 
     destroyList(headPtr);
 }

@@ -78,7 +78,7 @@ static void _nullify(Node **nodePtrPtr)
 {
     if (nodePtrPtr != NULL)
     {
-        nodePtrPtr = NULL;
+        *nodePtrPtr = NULL;
     }
 }
 
@@ -259,7 +259,11 @@ Node* createNode(int value)
 
 void destroyNode(Node **nodePtrPtr)
 {
-    free(nodePtrPtr);
+    if (nodePtrPtr == NULL || *nodePtrPtr == NULL)
+    {
+        return NULL;
+    }
+    free(*nodePtrPtr);
     _nullify(nodePtrPtr);
 }
 
