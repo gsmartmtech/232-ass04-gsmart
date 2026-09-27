@@ -165,7 +165,7 @@ void test_destroyNode_sets_null(void)
 
 void test_addFirst_empty_list(void)
 {
-    Node* headPtr;
+    Node* headPtr = createNode(NULL);
     headPtr->nextPtr = NULL;
     Node node2Add;
     addFirst(&headPtr, &node2Add);
@@ -188,8 +188,19 @@ void test_addFirst_empty_list(void)
 
 void test_addFirst_non_empty(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr;
+    headPtr->nextPtr = NULL;
+    Node nodeA;
+    nodeA.nextPtr = NULL;
+    Node nodeB;
+    nodeB.nextPtr = NULL;
+    addFirst(&headPtr, &nodeA);
+    addFirst(&headPtr, &nodeB);
+
+    TEST_ASSERT_EQUAL(&nodeB, headPtr);
+    TEST_ASSERT_EQUAL(&nodeA, headPtr->nextPtr);
+
+    destroyList(headPtr);
 }
 
 
@@ -202,8 +213,9 @@ void test_addFirst_non_empty(void)
 
 void test_addFirst_null_headptr(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node a;
+    int result = addFirst(NULL, &a);
+    TEST_ASSERT_EQUAL(-1, result);
 }
 
 
@@ -218,8 +230,15 @@ void test_addFirst_null_headptr(void)
 
 void test_addLast_empty_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr = createNode(NULL);
+    headPtr = NULL;
+    Node node2Add;
+    node2Add.nextPtr = NULL;
+    addLast(&headPtr, &node2Add);
+
+    TEST_ASSERT_EQUAL(&node2Add, headPtr);
+
+    destroyList(headPtr);
 }
 
 
@@ -235,8 +254,18 @@ void test_addLast_empty_list(void)
 
 void test_addLast_non_empty(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr;
+    headPtr = NULL;
+    Node nodeA;
+    Node nodeB;
+    addLast(&headPtr, &nodeA);
+    addLast(headPtr, &nodeB);
+    
+    TEST_ASSERT_EQUAL(&nodeA, headPtr);
+    TEST_ASSERT_EQUAL(&nodeB, headPtr->nextPtr);
+    TEST_ASSERT_EQUAL(NULL, headPtr->nextPtr->nextPtr);
+
+    destroyList(headPtr);
 }
 
 
@@ -249,8 +278,10 @@ void test_addLast_non_empty(void)
 
 void test_addLast_null_guard(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node a;
+    int result = addLast(NULL, &a);
+
+    TEST_ASSERT_EQUAL(-1, result);
 }
 
 
@@ -264,8 +295,14 @@ void test_addLast_null_guard(void)
 
 void test_detachFirst_returns_node(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node a;
+    Node b;
+    a.nextPtr = &b;
+    b.nextPtr == NULL;
+
+    int result = detachFirst(&a);
+
+    TEST_ASSERT_EQUAL(&a, result);
 }
 
 
@@ -279,8 +316,16 @@ void test_detachFirst_returns_node(void)
 
 void test_detachFirst_updates_head(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr;
+    Node a;
+    headPtr->nextPtr = &a;
+    Node b;
+    a.nextPtr = &b;
+    b.nextPtr = NULL;
+
+    detachFirst(&a);
+
+    TEST_ASSERT_EQUAL(&b, headPtr->nextPtr);
 }
 
 
@@ -293,8 +338,10 @@ void test_detachFirst_updates_head(void)
 
 void test_detachFirst_empty_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr = NULL;
+    int result = detachFirst(&headPtr);
+
+    TEST_ASSERT_EQUAL(NULL, result);
 }
 
 
@@ -310,8 +357,23 @@ void test_detachFirst_empty_list(void)
 
 void test_detachValue_found(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* nodePtr = createNode(NULL);
+    Node a;
+    Node b;
+    Node c;
+    nodePtr->nextPtr = &a;
+    nodePtr->nextPtr->nextPtr = &b;
+    nodePtr->nextPtr->nextPtr->nextPtr = &c;
+    nodePtr->nextPtr->nextPtr->nextPtr->nextPtr = NULL;
+    nodePtr->nextPtr->value = 1;
+    nodePtr->nextPtr->nextPtr->value = 2;
+    nodePtr->nextPtr->nextPtr->nextPtr->value = 3;
+
+    int result = detachValue(&nodePtr, 2);
+
+    TEST_ASSERT_EQUAL(&b, result);
+    TEST_ASSERT_EQUAL(&c, a.nextPtr);
+    TEST_ASSERT_EQUAL(NULL, b.nextPtr);
 }
 
 
@@ -326,8 +388,19 @@ void test_detachValue_found(void)
 
 void test_detachValue_head(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr;
+    Node a;
+    Node b;
+    headPtr->nextPtr = &a;
+    a.nextPtr = &b;
+    b.nextPtr = NULL;
+    a.value = 1;
+    b.value = 2;
+
+    int result = detachValue(&headPtr, 1);
+
+    TEST_ASSERT_EQUAL(&a, result);
+    TEST_ASSERT_EQUAL(&b, headPtr->nextPtr);
 }
 
 
@@ -341,8 +414,18 @@ void test_detachValue_head(void)
 
 void test_detachValue_not_found(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr;
+    Node a;
+    Node b;
+    headPtr->nextPtr = &a;
+    a.nextPtr = &b;
+    b.nextPtr = NULL;
+    a.value = 1;
+    b.value = 2;
+
+    int result = detachValue(&headPtr, 99);
+
+    TEST_ASSERT_EQUAL(NULL, result);
 }
 
 
@@ -358,8 +441,21 @@ void test_detachValue_not_found(void)
 
 void test_deleteFirst_removes_node(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* a = createNode(1);
+    Node* b = createNode(2);
+    //Node* headPtr = createNode(NULL);
+
+    b->nextPtr = NULL;
+    a->nextPtr = b;
+    //headPtr->nextPtr = a;
+
+    // issue is with find first
+
+    int result = deleteFirst(a);
+    TEST_ASSERT_EQUAL(0, result);
+    TEST_ASSERT_EQUAL(b, a->nextPtr);
+
+    destroyList(&a);
 }
 
 
@@ -372,8 +468,10 @@ void test_deleteFirst_removes_node(void)
 
 void test_deleteFirst_empty_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr;
+    int result = deleteFirst(headPtr);
+
+    TEST_ASSERT_EQUAL(-1, result);
 }
 
 
@@ -390,8 +488,20 @@ void test_deleteFirst_empty_list(void)
 
 void test_deleteValue_found(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* a = createNode(10);
+    Node* b = createNode(20);
+    Node* c = createNode(30);
+
+    Node* headPtr = &a;
+    headPtr->nextPtr = &b;
+    headPtr->nextPtr->nextPtr = &c;
+
+    int result = deleteValue(headPtr, 20);
+    TEST_ASSERT_EQUAL(0, result);
+    TEST_ASSERT_EQUAL(2, listLength(headPtr));
+    TEST_ASSERT_EQUAL(NULL, deleteValue(headPtr, 20));
+
+    destroyList(headPtr);
 }
 
 
@@ -407,11 +517,19 @@ void test_deleteValue_found(void)
 
 void test_deleteValue_not_found(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* a = createNode(10);
+    Node* b = createNode(20);
+
+    Node* headPtr = &a;
+    headPtr->nextPtr = &b;
+
+    int result = deleteValue(headPtr, 99);
+    TEST_ASSERT_EQUAL(-1, result);
+    TEST_ASSERT_EQUAL(2, listLength(headPtr));
+
+    destroyList(headPtr);
+
 }
-
-
 // ============================================================
 // test_destroyList_empties_list
 //
@@ -422,8 +540,17 @@ void test_deleteValue_not_found(void)
 
 void test_destroyList_empties_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* a = createNode(10);
+    Node* b = createNode(20);
+    Node* c = createNode(30);
+
+    Node* headPtr = &a;
+    headPtr->nextPtr = &b;
+    headPtr->nextPtr->nextPtr = &c;
+
+    destroyList(headPtr);
+
+    TEST_ASSERT_EQUAL(NULL, headPtr);
 }
 
 
@@ -436,8 +563,9 @@ void test_destroyList_empties_list(void)
 
 void test_listLength_empty(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    int result = listLength(NULL);
+
+    TEST_ASSERT_EQUAL(0, result);
 }
 
 
@@ -452,8 +580,19 @@ void test_listLength_empty(void)
 
 void test_listLength_three(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* a = createNode(10);
+    Node* b = createNode(20);
+    Node* c = createNode(30);
+
+    Node* headPtr = &a;
+    headPtr->nextPtr = &b;
+    headPtr->nextPtr->nextPtr = &c;
+
+    int result = listLength(headPtr);
+
+    TEST_ASSERT_EQUAL(3, headPtr);
+
+    destroyList(headPtr);
 }
 
 
@@ -466,6 +605,7 @@ void test_listLength_three(void)
 
 void test_printList_empty(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    int result = printList(NULL);
+
+    TEST_ASSERT_EQUAL(-1, result);
 }
