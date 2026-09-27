@@ -388,7 +388,7 @@ void test_detachValue_found(void)
 
 void test_detachValue_head(void)
 {
-    Node* headPtr;
+    Node* headPtr = createNode(NULL);
     Node a;
     Node b;
     headPtr->nextPtr = &a;
