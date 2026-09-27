@@ -417,7 +417,7 @@ void test_detachValue_not_found(void)
     Node* headPtr;
     Node a;
     Node b;
-    headPtr = &a;
+    headPtr->nextPtr = &a;
     a.nextPtr = &b;
     b.nextPtr = NULL;
     a.value = 1;
@@ -441,6 +441,7 @@ void test_detachValue_not_found(void)
 
 void test_deleteFirst_removes_node(void)
 {
+    // issue is somewhere in here
     Node* a = createNode(1);
     Node* b = createNode(2);
     Node* headPtr;
@@ -454,9 +455,9 @@ void test_deleteFirst_removes_node(void)
 
     int result = deleteFirst(headPtr);
     TEST_ASSERT_EQUAL(0, result);
-    TEST_ASSERT_EQUAL(b, a->nextPtr);
+    TEST_ASSERT_EQUAL(b, headPtr->nextPtr);
 
-    destroyList(&a);
+    destroyList(&headPtr);
 }
 
 
