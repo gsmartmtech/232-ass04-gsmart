@@ -443,15 +443,16 @@ void test_deleteFirst_removes_node(void)
 {
     Node* a = createNode(1);
     Node* b = createNode(2);
+    Node* headPtr;
     //Node* headPtr = createNode(NULL);
 
     b->nextPtr = NULL;
     a->nextPtr = b;
-    //headPtr->nextPtr = a;
+    headPtr = a;
 
     // issue is with find first
 
-    int result = deleteFirst(a);
+    int result = deleteFirst(headPtr);
     TEST_ASSERT_EQUAL(0, result);
     TEST_ASSERT_EQUAL(b, a->nextPtr);
 
