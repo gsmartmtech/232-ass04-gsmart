@@ -417,7 +417,7 @@ void test_detachValue_not_found(void)
     Node* headPtr;
     Node a;
     Node b;
-    headPtr->nextPtr = &a;
+    headPtr = &a;
     a.nextPtr = &b;
     b.nextPtr = NULL;
     a.value = 1;
