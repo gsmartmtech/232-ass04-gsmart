@@ -629,7 +629,7 @@ void destroyList(Node **headPtrPtr)
 int printList(Node *headPtr)
 {
     Node *currentPtr = headPtr;
-    if (currentPtr->nextPtr == NULL)
+    if (currentPtr == NULL)
     {
         fprintf(stdout, "List is empty.\n");
         return -1;
@@ -653,8 +653,8 @@ int printList(Node *headPtr)
 int listLength(Node *headPtr)
 {
     Node *currentPtr = headPtr;
-    int nodeCount = 0;
-    if (currentPtr->nextPtr == NULL)
+    int nodeCount = 1;
+    if (currentPtr == NULL)
     {
         return 0;
     }

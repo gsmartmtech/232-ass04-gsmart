@@ -469,7 +469,8 @@ void test_deleteFirst_removes_node(void)
 void test_deleteFirst_empty_list(void)
 {
     Node* headPtr;
-    int result = deleteFirst(headPtr);
+    headPtr = NULL;
+    int result = deleteFirst(&headPtr);
 
     TEST_ASSERT_EQUAL(-1, result);
 }
@@ -492,14 +493,14 @@ void test_deleteValue_found(void)
     Node* b = createNode(20);
     Node* c = createNode(30);
 
-    Node* headPtr = &a;
-    headPtr->nextPtr = &b;
-    headPtr->nextPtr->nextPtr = &c;
+    Node* headPtr = a;
+    headPtr->nextPtr = b;
+    headPtr->nextPtr->nextPtr = c;
 
-    int result = deleteValue(headPtr, 20);
+    int result = deleteValue(&headPtr, 20);
     TEST_ASSERT_EQUAL(0, result);
     TEST_ASSERT_EQUAL(2, listLength(headPtr));
-    TEST_ASSERT_EQUAL(NULL, deleteValue(headPtr, 20));
+    TEST_ASSERT_EQUAL(-1, deleteValue(&headPtr, 20));
 
     destroyList(headPtr);
 }
@@ -520,10 +521,11 @@ void test_deleteValue_not_found(void)
     Node* a = createNode(10);
     Node* b = createNode(20);
 
-    Node* headPtr = &a;
-    headPtr->nextPtr = &b;
+    Node* headPtr = a;
+    headPtr->nextPtr = b;
+    headPtr->nextPtr->nextPtr = NULL;
 
-    int result = deleteValue(headPtr, 99);
+    int result = deleteValue(&headPtr, 99);
     TEST_ASSERT_EQUAL(-1, result);
     TEST_ASSERT_EQUAL(2, listLength(headPtr));
 
@@ -544,11 +546,11 @@ void test_destroyList_empties_list(void)
     Node* b = createNode(20);
     Node* c = createNode(30);
 
-    Node* headPtr = &a;
-    headPtr->nextPtr = &b;
+    Node* headPtr = a;
+    headPtr->nextPtr = b;
     headPtr->nextPtr->nextPtr = &c;
 
-    destroyList(headPtr);
+    destroyList(&headPtr);
 
     TEST_ASSERT_EQUAL(NULL, headPtr);
 }
@@ -584,15 +586,15 @@ void test_listLength_three(void)
     Node* b = createNode(20);
     Node* c = createNode(30);
 
-    Node* headPtr = &a;
-    headPtr->nextPtr = &b;
-    headPtr->nextPtr->nextPtr = &c;
+    Node* headPtr = a;
+    headPtr->nextPtr = b;
+    headPtr->nextPtr->nextPtr = c;
 
     int result = listLength(headPtr);
 
-    TEST_ASSERT_EQUAL(3, headPtr);
+    TEST_ASSERT_EQUAL(3, result);
 
-    destroyList(headPtr);
+    destroyList(&headPtr);
 }
 
 
