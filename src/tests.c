@@ -457,7 +457,7 @@ void test_deleteFirst_removes_node(void)
     TEST_ASSERT_EQUAL(0, result);
     TEST_ASSERT_EQUAL(b, headPtr->nextPtr);
 
-    destroyList(&headPtr);
+    destroyList(headPtr);
 }
 
 
