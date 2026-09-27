@@ -417,7 +417,7 @@ void test_detachValue_not_found(void)
     Node* headPtr;
     Node a;
     Node b;
-    headPtr->nextPtr = &a;
+    headPtr = &a;
     a.nextPtr = &b;
     b.nextPtr = NULL;
     a.value = 1;
@@ -456,7 +456,7 @@ void test_deleteFirst_removes_node(void)
     TEST_ASSERT_EQUAL(0, result);
     TEST_ASSERT_EQUAL(b, headPtr->nextPtr);
 
-    destroyList(headPtr);
+    destroyList(&headPtr);
 }
 
 
@@ -503,7 +503,7 @@ void test_deleteValue_found(void)
     TEST_ASSERT_EQUAL(2, listLength(headPtr));
     TEST_ASSERT_EQUAL(-1, deleteValue(&headPtr, 20));
 
-    destroyList(headPtr);
+    destroyList(&headPtr);
 }
 
 
@@ -530,7 +530,7 @@ void test_deleteValue_not_found(void)
     TEST_ASSERT_EQUAL(-1, result);
     TEST_ASSERT_EQUAL(2, listLength(headPtr));
 
-    destroyList(headPtr);
+    destroyList(&headPtr);
 
 }
 // ============================================================

@@ -26,7 +26,7 @@ void test_detachFirst_empty_list(void);
 void test_detachValue_found(void);
 void test_detachValue_head(void);
 void test_detachValue_not_found(void);
-//void test_deleteFirst_removes_node(void);
+void test_deleteFirst_removes_node(void);
 void test_deleteFirst_empty_list(void);
 void test_deleteValue_found(void);
 void test_deleteValue_not_found(void);
