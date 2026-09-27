@@ -444,8 +444,7 @@ void test_deleteFirst_removes_node(void)
     // issue is somewhere in here
     Node* a = createNode(1);
     Node* b = createNode(2);
-    Node* headPtr;
-    //Node* headPtr = createNode(NULL);
+    Node* headPtr = createNode(NULL);
 
     b->nextPtr = NULL;
     a->nextPtr = b;

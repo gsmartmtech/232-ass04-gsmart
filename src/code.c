@@ -402,7 +402,7 @@ Node* detachFirst(Node **headPtrPtr)
     Node* firstNode = _findFirst(headPtrPtr);
     if (firstNode != NULL)
     {
-        *headPtrPtr = firstNode->nextPtr;
+        **&headPtrPtr = firstNode->nextPtr;
     }
     _nullify(firstNode);
     return firstNode;
@@ -517,10 +517,6 @@ int deleteFirst(Node **headPtrPtr)
     Node* firstNode = detachFirst(headPtrPtr);
     if (firstNode == NULL)
     {
-        if (*headPtrPtr == NULL)
-        {
-            *headPtrPtr = firstNode;
-        }
         *headPtrPtr = NULL;
     }
     destroyNode(firstNode);
